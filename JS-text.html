@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="gb2312">
+    <title>Title</title>
+    <style>
+        body { height: 100%; padding: 0; margin: 0; }
+        .box { height: 400px; position: relative; }
+        .a { height: 100px; background: #ff0000; }
+        .b { background: #00ff00; width: 100%; position: absolute; top: 100px ; left: 0 ; bottom: 0;}
+    </style>
+</head>
+<body>
+     <div class="box">
+         <div class="a"></div>
+         <div class="b"></div>
+     </div>
+</body>
+<script type="text/javascript">
+	//数组去重,需要考虑到{}
+	function uniq(arr) {
+	    let turnObject = {};//对象关键字的唯一性
+	    let uniqArr = [];
+	    for(let i = 0, l = arr.length; i < l;i++){
+	        if(!turnObject[arr[i]] || arr[i] instanceof Object){//判断是否为空或者是否是{}
+	           turnObject[arr[i]] = arr[i];
+	           uniqArr.push(arr[i]);
+	        }
+	    }
+	    return uniqArr;
+	}
+	var arr = [false, true, undefined, null, NaN, 0, 1, {}, {}, 'a', 'a', NaN];
+
+	//统计字符串中每个字符的出现频率，考虑空格
+	function count(str) {
+	    let countObject = {};
+	    str = str.split(' ').join();//使用split分割字符串，使其没有空格，在拼接成一个字符串
+	    for(let i = 0, l = str.length; i < l; i++){
+	    	if(str[i] != ','){//去掉字符串中的逗号
+	    		if(!countObject[str[i]]){
+	            	countObject[str[i]] = 1;
+		        }else{
+		            countObject[str[i]] += 1;
+		        }
+	    	}    
+	    }
+	    return countObject;
+	}
+	count('hello world');
+
+    //获取含有汉字的字符串的长度
+	function strLength(str, bUnicode255For1) {
+		 var realLength = 0, len = str.length, charCode = -1;
+		  for (var i = 0; i < len; i++) {
+		    charCode = str.charCodeAt(i);
+		    if (charCode >= 0 && charCode <= 255) 
+		       realLength += 1;
+		    else
+		       realLength += 2;
+		  }
+		 // console.log(realLength);
+		  return realLength;
+		
+	}
+	// strLength('hello world, 牛客',false);
+
+//将字符串转换为驼峰格式
+	const sName = " -webkit-border-image-";
+	// const str = sName.replace(/(^\s+)|(\s+$)/g, "").split("-").filter(item => item != "" && item).map((item, index) => {
+	// 	if(index != 0) return (item.slice(0, 1).toUpperCase() + item.slice(1));
+	// 	else return item;
+	// }).join("");
+	const str = sName.replace(/(?!^)\-(\w)(\w+)/g, (a, b, c) => {
+		return b.toUpperCase() + c.toLowerCase();
+	}).replace("-", "");
+	//console.log(str);
+
+
+
+</script>
+</html>
+
